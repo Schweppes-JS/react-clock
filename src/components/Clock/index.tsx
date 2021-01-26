@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
+import { transform } from 'typescript';
 import './Clock.css';
 
-export class Clock extends Component {
+type ClockState = {
+  seconds: number,
+  minutes: number,
+  hours: number
+}
 
-  private date: Date;
+export class Clock extends Component<{}, ClockState> {
 
-  constructor(props: any) {
-    super(props);
-    this.date = new Date();
+  tick() {
+    this.setState({
+      seconds: new Date().getSeconds(),
+      minutes: new Date().getMinutes(),
+      hours: new Date().getHours()
+    });
+  }
+
+  componentWillMount() {
+    this.tick();
+  }
+
+  componentDidMount() {
+    setInterval(() => this.tick(), 1000);
   }
 
   render() {
@@ -52,11 +68,11 @@ export class Clock extends Component {
           </p>
         </div>
         <div className="dial__central-axis">
-          <div className="central-axis__hour-arrow"></div>
-          <div className="central-axis__minute-arrow"></div>
-          <div className="central-axis__second-arrow"></div>
+          <div className="central-axis__hour-arrow" style={{ transform: `rotate(${this.state.hours * 6}deg)` }}></div>
+          <div className="central-axis__minute-arrow" style={{ transform: `rotate(${this.state.minutes * 6}deg)` }}></div>
+          <div className="central-axis__second-arrow" style={{ transform: `rotate(${this.state.seconds * 6}deg)` }}></div>
         </div>
-      </div>
+      </div >
     )
   }
 }
