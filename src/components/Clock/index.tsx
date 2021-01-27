@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { transform } from 'typescript';
 import './Clock.css';
 
 type ClockState = {
@@ -10,19 +9,24 @@ type ClockState = {
 
 export class Clock extends Component<{}, ClockState> {
 
+  state = {
+    seconds: new Date().getSeconds() * 6,
+    minutes: new Date().getMinutes() * 6,
+    hours: (new Date().getHours() * 30) + (new Date().getMinutes() / 2)
+  };
+
+  private immovable: boolean = false;
+
   tick() {
     this.setState({
-      seconds: new Date().getSeconds(),
-      minutes: new Date().getMinutes(),
-      hours: new Date().getHours()
+      seconds: this.state.seconds + 6,
+      minutes: (new Date().getSeconds() === 59) ? (this.state.minutes + 6) : this.state.minutes,
+      hours: this.state.hours + (new Date().getSeconds() === 59 ? 0.5 : 0)
     });
   }
 
-  componentWillMount() {
-    this.tick();
-  }
-
   componentDidMount() {
+    this.tick();
     setInterval(() => this.tick(), 1000);
   }
 
@@ -68,9 +72,12 @@ export class Clock extends Component<{}, ClockState> {
           </p>
         </div>
         <div className="dial__central-axis">
-          <div className="central-axis__hour-arrow" style={{ transform: `rotate(${this.state.hours * 6}deg)` }}></div>
-          <div className="central-axis__minute-arrow" style={{ transform: `rotate(${this.state.minutes * 6}deg)` }}></div>
-          <div className="central-axis__second-arrow" style={{ transform: `rotate(${this.state.seconds * 6}deg)` }}></div>
+          <div className="central-axis__hour-arrow" style={{ transform: `rotate(${this.state.hours}deg)` }}></div>
+          <div className="central-axis__minute-arrow" style={{ transform: `rotate(${this.state.minutes}deg)` }}></div>
+          <div
+            className={`central-axis__second-arrow ${this.immovable ? "immovable" : ""}`}
+            style={{ transform: `rotate(${this.state.seconds}deg)` }}
+          ></div>
         </div>
       </div >
     )
