@@ -3,7 +3,7 @@
 }
 
 :root {
-  --primary-color: rgba(255, 255, 255, 1);
+  --primary-color: rgba(255, 255, 255, .9);
   --secondary-color: #D4C26A;
   --complementary-colors: #808015;
   --axis-color: #3E7213;
@@ -12,7 +12,7 @@
   --shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
 }
 
-[data-theme="light"] {
+[data-theme="dark"] {
   --primary-color: rgba(0, 0, 0, .9);
   --secondary-color: #01696E;
   --complementary-colors: #266AA2;

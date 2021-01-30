@@ -15,8 +15,16 @@
 }
 
 .theme-switch__toggler {
-  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  padding: 3px 10px 3px 0;
   position: relative;
+}
+
+.toggler__icon {
+  font-size: 1.7rem;
+  color: var(--secondary-color);
+  margin-right: 10px;
 }
 
 .toggler__slider {
@@ -35,7 +43,7 @@
   height: 24px;
   width: 24px;
   left: 5px;
-  background-color: var(--secondary-color);
+  background-color: var(--border-color);
   border-radius: 50%;
   transition: all .4s;
 }
