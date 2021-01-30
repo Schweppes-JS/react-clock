@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import Clock from './components/Clock';
+import ThemeSwitch from './components/ThemeSwitch';
 import TimeZone from './components/TimeZone';
 
 type ClockState = {
@@ -69,6 +71,7 @@ class App extends Component<{}, ClockState> {
       <div className="root-container__app-container">
         <Clock {...this.state.angles} />
         <TimeZone onChangeTimeZone={this.onChangeTimeZone} />
+        <ThemeSwitch />
       </div>
     )
   }
